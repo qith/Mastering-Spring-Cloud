@@ -1,11 +1,12 @@
 package pl.piomin.services.customer.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Customer {
-
-	private Long id;
+	private Long id ;
 	private String name;
 	private CustomerType type;
 	private List<Account> accounts = new ArrayList<>();

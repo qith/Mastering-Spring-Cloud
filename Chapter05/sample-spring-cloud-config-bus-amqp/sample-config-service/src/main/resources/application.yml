@@ -11,12 +11,12 @@ spring:
           github:
             enabled: true
         git:
-          uri: https://github.com/piomin/sample-spring-cloud-config-repo.git
+          uri: https://github.com/qith/sample-spring-cloud-config-repo.git
           username: ${github.username}
           password: ${github.password}
           cloneOnStart: true
   rabbitmq:
-    host: 192.168.99.100
+    host: 127.0.0.1
     port: 5672
     username: guest
     password: guest
