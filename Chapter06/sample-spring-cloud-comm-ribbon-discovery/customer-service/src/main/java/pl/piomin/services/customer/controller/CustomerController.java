@@ -15,7 +15,7 @@ import pl.piomin.services.customer.model.Customer;
 import pl.piomin.services.customer.repository.CustomerRepository;
 
 @RestController
-@RequestMapping("/kawa")
+@RequestMapping("/custom")
 public class CustomerController {
 
 	@Autowired
@@ -40,7 +40,7 @@ public class CustomerController {
 
 	@GetMapping("/withAccounts/{id}")
 	public Customer findByIdWithAccounts(@PathVariable("id") Long id) {
-		Account[] accounts = template.getForObject("http://account-service/customer/{customerId}", Account[].class, id);
+		Account[] accounts = template.getForObject("http://account-service/account/customer/{customerId}", Account[].class, id);
 		Customer c = repository.findById(id);
 		c.setAccounts(Arrays.stream(accounts).collect(Collectors.toList()));
 		return c;

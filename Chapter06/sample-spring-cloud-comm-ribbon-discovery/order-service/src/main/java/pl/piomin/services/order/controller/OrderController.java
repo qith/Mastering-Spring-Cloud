@@ -3,11 +3,7 @@ package pl.piomin.services.order.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import pl.piomin.services.order.model.Account;
@@ -18,6 +14,7 @@ import pl.piomin.services.order.model.Product;
 import pl.piomin.services.order.repository.OrderRepository;
 
 @RestController
+@RequestMapping("/order")
 public class OrderController {
 
 //	private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
@@ -30,8 +27,8 @@ public class OrderController {
 	@PostMapping
 	public Order prepare(@RequestBody Order order) {
 		int price = 0;
-		Product[] products = template.postForObject("http://product-service/ids", order.getProductIds(), Product[].class);
-		Customer customer = template.getForObject("http://customer-service/withAccounts/{id}", Customer.class, order.getCustomerId());
+		Product[] products = template.postForObject("http://product-service/product/ids", order.getProductIds(), Product[].class);
+		Customer customer = template.getForObject("http://customer-service/custom/withAccounts/{id}", Customer.class, order.getCustomerId());
 		for (Product product : products) 
 			price += product.getPrice();
 		final int priceDiscounted = priceDiscount(price, customer);
