@@ -2,6 +2,10 @@ package pl.piomin.services.boot.controller;
 
 import java.util.List;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,7 @@ import pl.piomin.services.boot.service.PersonCounterService;
 
 @RestController
 @RequestMapping("/person")
+@Api(value = "/person", tags = "Operations about user")
 public class PersonController {
 	
 	@Autowired
@@ -26,10 +31,15 @@ public class PersonController {
 	private PersonCounterService counterService;
 	
 	@GetMapping
+	@ApiImplicitParam()
 	public List<Person> findAll() {
 		return repository.findAll();
 	}
-	
+
+	@ApiOperation(value="根据用户id查询用户信息",notes="随边说点啥")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name="id",value="用户ID",required=true,paramType="path"),
+	})
 	@GetMapping("/{id}")
 	public Person findById(@RequestParam("id") String id) {
 		return repository.findOne(id);
