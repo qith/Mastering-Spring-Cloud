@@ -4,6 +4,9 @@ server:
 spring:  
   application:
     name: first-service
+  boot:
+    admin:
+        url: http://localhost:9807
     
 logging:
   pattern:
@@ -16,6 +19,7 @@ logging:
 management:
   security:
     enabled: false
+
     
 ---
 
